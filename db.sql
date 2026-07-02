@@ -1,4 +1,4 @@
--- Create a table 
+-- Create student's table 
 CREATE TABLE Students (
     StudentID INT PRIMARY KEY,
     FirstName NVARCHAR(50) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE Teachers (
 );
 GO  
 
---Create another table
+--Create department table
 CREATE TABLE Departments (
     DepartmentID INT PRIMARY KEY,
     DepartmentName NVARCHAR(50) NOT NULL,
@@ -54,15 +54,15 @@ CREATE TABLE Subjects (
 );
 GO
 
---Cretae a student's score table
+--Create a student's score table
 CREATE TABLE Score (
     ScoreID INT PRIMARY KEY,
     StudentID INT,
     SubjectID INT,
-    FOREIGN KEY (StudentID) REFERENCES Students(StudentsID),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
     FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID),
     Score INT NOT NULL,
-    Term NVARCHAR9(50) NOT NULL,
+    Term NVARCHAR(50) NOT NULL,
     Year INT NOT NULL
 );
 GO
