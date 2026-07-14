@@ -26,8 +26,8 @@ CREATE TABLE Departments (
 );
 GO
 
---Create a teacher's department table
-CREATE TABLE TeachersDepartments (
+--Create a teachers department table
+CREATE TABLE TeachersDepartment (
     TeacherID INT PRIMARY KEY,
     DepartmentID INT,
     FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID),

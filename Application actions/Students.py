@@ -23,7 +23,7 @@ while True:
         CREATE TABLE Students
 
     (
-           StudentID INT PRIMARY KEY,
+           StudentID NVARCHAR(50) PRIMARY KEY,
            FirstName NVARCHAR(50),
            LastName NVARCHAR(50),
            DateOfBirth DATE            

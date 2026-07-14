@@ -21,7 +21,7 @@ while True:
     if choice == "1":
         cursor.execute("""
         CREATE TABLE Departments(
-            DepartmentID INT PRIMARY KEY,
+            DepartmentID NVARCHAR(50) PRIMARY KEY,
             DepartmentName NVARCHAR(50),
             HeadOfDepartment NVARCHAR(50)
         )

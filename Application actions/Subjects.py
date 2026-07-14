@@ -22,7 +22,7 @@ while True:
         cursor.execute("""
         CREATE TABLE Subjects
     (
-           TeacherID INT PRIMARY KEY,
+           TeacherID NVARCHAR(50) PRIMARY KEY,
            FirstName NVARCHAR(50),
            LastName NVARCHAR(50),
            DateOfBirth DATE            
