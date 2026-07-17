@@ -24,7 +24,7 @@ def add_score():
     try:
         cursor.execute(
             """
-        INSERT INTO Score
+        INSERT INTO Scores
         (ScoreID, StudentID, SubjectID, Score, Term, Year)
         VALUES (?, ?, ?, ?, ?, ?)
         """,
@@ -41,7 +41,7 @@ def add_score():
 # ---------------- EDIT STUDENT SCORE ---------------- #
 
 
-def edit_score():
+def edit_scores():
     score_id = int(input("Enter Score ID to edit: "))
     new_score = int(input("Enter New Score: "))
     new_term = input("Enter New Term: ")
@@ -50,7 +50,7 @@ def edit_score():
     try:
         cursor.execute(
             """
-        UPDATE Score
+        UPDATE Scores
         SET Score = ?,
             Term = ?,
             Year = ?
@@ -85,7 +85,7 @@ while True:
         add_score()
 
     elif choice == "2":
-        edit_score()
+        edit_scores()
 
     elif choice == "3":
         print("Program Closed.")

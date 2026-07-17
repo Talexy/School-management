@@ -143,19 +143,34 @@ def load_scores():
 # ---------------- MAIN ---------------- #
 
 try:
-    load_teachers()
-    conn.commit()
-    load_departments()
-    conn.commit()
-    load_streams()
-    conn.commit()
-    load_students()
-    conn.commit()
-    load_subjects()
-    conn.commit()
-    load_teachers_departments()
-    conn.commit()
-    load_scores()
+    cursor.execute("SELECT COUNT(*)FROM Teachers")
+    if cursor.fetchone()[0] == 0:
+        print("Teachers table is filled")
+        load_teachers()
+    cursor.execute("SELECT COUNT(*)FROM Departments")
+    if cursor.fetchone()[0] == 0:
+        print("Departments table is filled")
+        load_departments()
+    cursor.execute("SELECT COUNT(*)FROM Streams")
+    if cursor.fetchone()[0] == 0:
+        print("Streams table is filled")
+        load_streams()
+    cursor.execute("SELECT COUNT(*)FROM Students")
+    if cursor.fetchone()[0] == 0:
+        print("Students table is filled")
+        load_students()
+    cursor.execute("SELECT COUNT(*)FROM Subjects")
+    if cursor.fetchone()[0] == 0:
+        print("Subjects table is filled")
+        load_subjects()
+    cursor.execute("SELECT COUNT(*)FROM TeachersDepartment")
+    if cursor.fetchone()[0] == 0:
+        print("TeachersDepartment table is filled")
+        load_teachers_departments()
+    cursor.execute("SELECT COUNT(*)FROM Scores")
+    if cursor.fetchone()[0] == 0:
+        print("Scores table is filled")
+        load_scores()
 
     conn.commit()
 
