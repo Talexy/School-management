@@ -11,37 +11,49 @@ cursor = conn.cursor()
 
 while True:
     print("\n===== Subjects Table =====")
-    print("1. Create Subjects Table")
-    print("2. Edit Subjects Table")
-    print("3. Delete Subjects Table")
+    print("1. Create Subjects")
+    print("2. Edit Subjects")
+    print("3. Delete Subjects")
     print("4. Exit")
 
     choice = input("Enter your choice: ")
 
     if choice == "1":
-        cursor.execute("""
-        CREATE TABLE Subjects
-    (
-           TeacherID NVARCHAR(50) PRIMARY KEY,
-           FirstName NVARCHAR(50),
-           LastName NVARCHAR(50),
-           DateOfBirth DATE            
+        Subject_ID = int(input("Enter Subject ID: "))
+        Subject_Name = input("Enter Subject Name: ")
+        Department_ID = int(input("Enter Department ID: "))
+
+        cursor.execute(
+            """
+        INSERT INTO Subjects (SubjectID, SubjectName, DepartmentID)
+        VALUES (?, ?, ?)
+        """,
+            (Subject_ID, Subject_Name, Department_ID),
         )
-        """)
         conn.commit()
-        print("Subjects table created successfully!")
+        print("Subjects created successfully!")
 
     elif choice == "2":
-        column_name = input("Enter new column name:")
-        datatype = input("Enter data type:")
-        cursor.execute(f"ALTER TABLE Subjects ADD {column_name} {datatype}")
+        Subject_ID = int(input("Enter Subject ID to edit: "))
+        Subject_Name = input("Enter new Subject Name: ")
+        Department_ID = int(input("Enter new Department ID: "))
+
+        cursor.execute(
+            """
+        UPDATE Subjects
+        SET SubjectName = ?, DepartmentID = ?
+        WHERE SubjectID = ?
+        """,
+            (Subject_Name, Department_ID, Subject_ID),
+        )
         conn.commit()
-        print("Column added successfully!")
+        print("Subjects updated successfully!")
 
     elif choice == "3":
-        cursor.execute("DROP TABLE Subjects ")
+        Subject_ID = int(input("Enter Subject ID to delete: "))
+        cursor.execute("DELETE FROM Subjects WHERE SubjectID = ?", (Subject_ID,))
         conn.commit()
-        print("Subjects table deleted successfully!")
+        print("Subjects deleted successfully!")
 
     elif choice == "4":
         break

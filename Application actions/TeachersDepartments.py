@@ -11,7 +11,7 @@ cursor = conn.cursor()
 
 
 while True:
-    print("\n===== TeachersDepartment Table =====")
+    print("\n===== TeachersDepartments Table =====")
     print("1.Assign teacher to department ")
     print("2. Remove teacher from department")
     print("3. Exit")
@@ -24,7 +24,7 @@ while True:
 
         cursor.execute(
             """
-                      INSERT INTO TeacherDepartment (TeacherID, DepartmentID)
+                      INSERT INTO TeachersDepartments (TeacherID, DepartmentID)
                       VALUES (?, ?)
         """,
             (teacher_id, department_id),
@@ -37,7 +37,7 @@ while True:
         department_id = input("Enter department ID:")
         cursor.execute(
             """
-                       DELETE FROM TeachersDepartment
+                       DELETE FROM TeachersDepartments
                        WHERE TeacherID = ? AND DepartmentID = ?
                        """,
             (teacher_id, department_id),

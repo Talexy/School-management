@@ -10,39 +10,52 @@ conn = pyodbc.connect(
 cursor = conn.cursor()
 
 while True:
-    print("\n===== Stream Table =====")
-    print("1. Create Stream Table")
-    print("2. Edit Stream Table")
-    print("3. Delete Stream Table")
+    print("\n===== Streams Table =====")
+    print("1. Create new Stream ")
+    print("2. Edit Stream ")
+    print("3. Delete Stream ")
     print("4. Exit")
 
     choice = input("Enter your choice: ")
 
     if choice == "1":
-        cursor.execute("""
-        CREATE TABLE Stream
+        Stream_ID = input("Enter new Stream ID: ")
+        Stream_Name = input("Enter stream Name: ")
+        Teacher_ID = input("Enter teacher ID: ")
+        Stream_Capacity = input("Enter stream capacity: ")
 
-    (
-           TeacherID NVARCHAR(50) PRIMARY KEY,
-           FirstName NVARCHAR(50),
-           LastName NVARCHAR(50),
-           DateOfBirth DATE            
+        cursor.execute(
+            """
+       INSERT INTO Streams( StreamID, StreamName, TeacherID, StreamCapacity)
+       VALUES (?, ?, ?, ?)
+        """,
+            (Stream_ID, Stream_Name, Teacher_ID, Stream_Capacity),
         )
-        """)
         conn.commit()
-        print("Stream table created successfully!")
+        print("New Stream created successfully!")
 
     elif choice == "2":
-        column_name = input("Enter new column name:")
-        datatype = input("Enter data type:")
-        cursor.execute(f"ALTER TABLE Stream ADD {column_name} {datatype}")
+        Stream_ID = input("Enter Stream ID to edit: ")
+        Stream_Name = input("Enter new stream Name: ")
+        Teacher_ID = input("Enter teacher ID: ")
+        Stream_Capacity = input("Enter stream capacity: ")
+
+        cursor.execute(
+            """
+               UPDATE Streams
+               SET StreamID = ?, StreamName = ?, TeacherID = ?, StreamCapacity = ?
+               WHERE StreamID = ?
+               """,
+            (Stream_ID, Stream_Name, Teacher_ID, Stream_Capacity, Stream_ID),
+        )
         conn.commit()
-        print("Column added successfully!")
+        print("Stream updated successfully!")
 
     elif choice == "3":
-        cursor.execute("DROP TABLE Stream ")
+        Stream_ID = input("Enter Stream ID to delete: ")
+        cursor.execute("DELETE FROM Streams WHERE StreamID = ?", (Stream_ID,))
         conn.commit()
-        print("Stream table deleted successfully!")
+        print("Stream deleted successfully!")
 
     elif choice == "4":
         break

@@ -106,21 +106,21 @@ def load_subjects():
     print("Subjects imported successfully.")
 
 
-# ---------------- LOAD TEACHERS DEPARTMENT ---------------- #
+# ---------------- LOAD TEACHERS DEPARTMENTS ---------------- #
 
 
 def load_teachers_departments():
-    with open("TeachersDepartment.csv", "r", newline="") as file:
+    with open("TeachersDepartments.csv", "r", newline="") as file:
         reader = csv.reader(file)
         next(reader)
 
         for row in reader:
             cursor.execute(
-                "INSERT INTO TeachersDepartment (TeacherID, DepartmentID) VALUES (?,?)",
+                "INSERT INTO TeachersDepartments (TeacherID, DepartmentID) VALUES (?,?)",
                 row,
             )
 
-    print("TeachersDepartment imported successfully.")
+    print("TeachersDepartments imported successfully.")
 
 
 # ---------------- LOAD SCORES ---------------- #
@@ -163,9 +163,9 @@ try:
     if cursor.fetchone()[0] == 0:
         print("Subjects table is filled")
         load_subjects()
-    cursor.execute("SELECT COUNT(*)FROM TeachersDepartment")
+    cursor.execute("SELECT COUNT(*)FROM TeachersDepartments")
     if cursor.fetchone()[0] == 0:
-        print("TeachersDepartment table is filled")
+        print("TeachersDepartments table is filled")
         load_teachers_departments()
     cursor.execute("SELECT COUNT(*)FROM Scores")
     if cursor.fetchone()[0] == 0:

@@ -11,37 +11,51 @@ cursor = conn.cursor()
 
 while True:
     print("\n===== Teachers Table =====")
-    print("1. Create Teachers Table")
-    print("2. Edit Teachers Table")
-    print("3. Delete Teachers Table")
+    print("1. Create Teachers ")
+    print("2. Edit Teachers ")
+    print("3. Delete Teachers")
     print("4. Exit")
 
     choice = input("Enter your choice: ")
 
     if choice == "1":
-        cursor.execute("""
-        CREATE TABLE Teachers
-    (
-           TeacherID NVARCHAR(50) PRIMARY KEY,
-           FirstName NVARCHAR(50),
-           LastName NVARCHAR(50),
-           DateOfBirth DATE            
+        teacher_id = int(input("Enter Teacher ID: "))
+        first_name = input("Enter First name: ")
+        last_name = input("Enter Last name: ")
+        date_of_birth = input("Enter Date Of Birth (YYYY-MM-DD): ")
+
+        cursor.execute(
+            """
+            INSERT INTO Teachers (TeacherID, FirstName, LastName, DateOfBirth)
+            VALUES (?, ?, ?, ?)
+            """,
+            (teacher_id, first_name, last_name, date_of_birth),
         )
-        """)
         conn.commit()
-        print("Teachers table created successfully!")
+        print("Teachers created successfully!")
 
     elif choice == "2":
-        column_name = input("Enter new column name:")
-        datatype = input("Enter data type:")
-        cursor.execute(f"ALTER TABLE Teachers ADD {column_name} {datatype}")
+        teacher_id = int(input("Enter teacher ID to edit: "))
+        first_name = input("Enter new First name: ")
+        last_name = input("Enter new Last Name: ")
+        date_of_birth = input("Enter new Date Of Birth (YYYY-MM-DD): ")
+
+        cursor.execute(
+            """
+            UPDATE Teachers
+            SET FirstName = ?, LastName = ?, DateOfBirth = ?
+            WHERE TeacherID = ?
+            """,
+            (first_name, last_name, date_of_birth, teacher_id),
+        )
         conn.commit()
-        print("Column added successfully!")
+        print("Teachers updated successfully!")
 
     elif choice == "3":
-        cursor.execute("DROP TABLE Teachers ")
+        teacher_id = int(input("Enter teacher ID to delete: "))
+        cursor.execute("DELETE FROM Teachers WHERE TeacherID = ?", (teacher_id,))
         conn.commit()
-        print("Teachers table deleted successfully!")
+        print("Teachers deleted successfully!")
 
     elif choice == "4":
         break

@@ -29,7 +29,7 @@ GO
 --Create a teachers department table
 CREATE TABLE TeachersDepartment (
     TeacherID INT PRIMARY KEY,
-    DepartmentID INT,
+    DepartmentID INT PRIMARY KEY,
     FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID),
     FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
 );

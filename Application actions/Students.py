@@ -11,38 +11,54 @@ cursor = conn.cursor()
 
 while True:
     print("\n===== Students Table =====")
-    print("1. Create Students Table")
-    print("2. Edit Students Table")
-    print("3. Delete Students Table")
+    print("1. Create Students ")
+    print("2. Edit Students ")
+    print("3. Delete Students ")
     print("4. Exit")
 
     choice = input("Enter your choice: ")
 
     if choice == "1":
-        cursor.execute("""
-        CREATE TABLE Students
+        Student_ID = int(input("Enter Student ID: "))
+        First_Name = input("Enter First Name: ")
+        Last_Name = input("Enter Last Name: ")
+        DateOfBirth = input("Enter Date Of Birth (YYYY-MM-DD): ")
+        Stream_ID = int(input("Enter Stream ID: "))
 
-    (
-           StudentID NVARCHAR(50) PRIMARY KEY,
-           FirstName NVARCHAR(50),
-           LastName NVARCHAR(50),
-           DateOfBirth DATE            
+        cursor.execute(
+            """
+       INSERT INTO Students (StudentID, FirstName, LastName, DateOfBirth, StreamID)
+       VALUES (?, ?, ?, ?, ?)
+       """,
+            (Student_ID, First_Name, Last_Name, DateOfBirth, Stream_ID),
         )
-        """)
+
         conn.commit()
-        print("Students table created successfully!")
+        print("Students  created successfully!")
 
     elif choice == "2":
-        column_name = input("Enter new column name:")
-        datatype = input("Enter data type:")
-        cursor.execute(f"ALTER TABLE Students ADD {column_name} {datatype}")
+        Student_ID = int(input("Enter Student ID to edit: "))
+        First_Name = input("Enter new First Name: ")
+        Last_Name = input("Enter new Last Name: ")
+        DateOfBirth = input("Enter new Date Of Birth (YYYY-MM-DD): ")
+        Stream_ID = int(input("Enter new Stream ID: "))
+
+        conn.execute(
+            """
+        UPDATE Students
+        SET StudentID = ?, FirstName = ?, LastName = ?, DateOfBirth = ?, StreamID = ?
+        WHERE StudentID = ?
+        """,
+            (Student_ID, First_Name, Last_Name, DateOfBirth, Stream_ID, Student_ID),
+        )
         conn.commit()
-        print("Column added successfully!")
+        print("Students updated successfully!")
 
     elif choice == "3":
-        cursor.execute("DROP TABLE Students ")
+        Student_ID = int(input("Enter Student ID to delete: "))
+        conn.execute("DELETE FROM Students WHERE StudentID = ?", (Student_ID,))
         conn.commit()
-        print("Students table deleted successfully!")
+        print("Students deleted successfully!")
 
     elif choice == "4":
         break
