@@ -19,9 +19,9 @@ while True:
     choice = input("Enter your choice: ")
 
     if choice == "1":
-        Department_ID = int(input("Enter Department ID  :"))
-        Department_Name = input("Enter Department name :")
-        HeadOfDepartment = input("Enter head of department :")
+        Department_ID = int(input("Enter Department ID  : "))
+        Department_Name = input("Enter Department name : ")
+        HeadOfDepartment = input("Enter head of department : ")
 
         cursor.execute(
             """
@@ -37,8 +37,8 @@ while True:
 
     elif choice == "2":
         Department_ID = int(input("Enter Department ID to edit: "))
-        Department_Name = input("Enter new department name:")
-        HeadOfDepartment = input("Enter new haed of department")
+        Department_Name = input("Enter new department name: ")
+        HeadOfDepartment = input("Enter new head of department: ")
 
         cursor.execute(
             """
@@ -57,7 +57,7 @@ while True:
             "DELETE FROM Departments WHERE DepartmentID = ?", (Department_ID,)
         )
         conn.commit()
-        print("Departments table deleted successfully!")
+        print("Departments deleted successfully!")
 
     elif choice == "4":
         break

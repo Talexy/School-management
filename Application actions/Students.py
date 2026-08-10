@@ -49,7 +49,7 @@ while True:
         SET StudentID = ?, FirstName = ?, LastName = ?, DateOfBirth = ?, StreamID = ?
         WHERE StudentID = ?
         """,
-            (Student_ID, First_Name, Last_Name, DateOfBirth, Stream_ID, Student_ID),
+            (Student_ID, First_Name, Last_Name, DateOfBirth, Stream_ID),
         )
         conn.commit()
         print("Students updated successfully!")
